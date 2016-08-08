@@ -1,4 +1,5 @@
 # Git Definitions
+## (a brief tutorial)
 
 **Instructions: ** Define each of the following Git concepts.
 
