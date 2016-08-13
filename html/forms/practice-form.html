@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Silly practice form</title>
+</head>
+<body>
+<form name="practice" action="success.html" method="post">
+<fieldset>
+	<div>
+	<label>Pick a fruit:</label>
+	<select name="fruit">
+	<option value="banana">Banana</option>
+	<option value="orange">Orange</option>
+	<option value="strawberry">Strawberry</option>
+	</select>
+	</div>
+	<div>
+	<label>Write a story about the fruit:</label>
+	<textarea name="story">Once upon a time...</textarea>
+	</div>
+	<div>
+	<label>Did you really write a good story?</label>
+	<input type="radio" name="goodstory" value="yes">Yes<input type="radio" name="goodstory" value="no">No</div>
+	<div>
+	<label>When is this assignment due?</label>
+	<input type="date" name="duedate">
+	</div>
+	<div>
+	<label>What's your favorite color?</label>
+	<input type="color" name="favecolor">
+	</div>
+</fieldset>
+<button type="submit">Onwards!</button>
+</form>
+</body>
+</html>
