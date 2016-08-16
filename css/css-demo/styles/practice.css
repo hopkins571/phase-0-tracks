@@ -13,3 +13,11 @@ section.job {
 .accomplishments {
 	font-size: .8em;
 }
+
+h2::first-letter {
+	color: red;
+}
+
+ul.accomplishments li {
+	color: blue;
+}
