@@ -1,0 +1,30 @@
+h1 {
+	text-align: left;
+	font-family: "Comic Sans MS", Tahoma, sans-serif;
+	color: blue;
+	text-shadow: 2px 2px gray;
+}
+
+div.larry {
+	position: relative;
+	margin: 20px 200px 20px 200px;
+}
+
+#octopus {
+	z-index: -1;
+	position: absolute;
+	top: 80px;
+	left: 20px;
+}
+
+#glasses {
+	z-index: 1;
+	position: absolute;
+	top: 180px;
+	left: 60px;
+}
+
+#hat {
+	z-index: 0;
+	position: absolute;
+}
