@@ -35,6 +35,8 @@ Using an elevator:
     + Turn around 180 degrees to face the elevator door if you are able to do so without bumping into people.
 - While in the elevator:
     + Do not initiate conversation or eye contact with strangers while in the elevator and try to ignore the muzak.
+    + If someone else asks you to press a button:
+        * Press the button they tell you to press.
     + If the elevator loses power or stops moving between floors:
         * Locate the ALARM button and press it.
 - Locate the panel of buttons on the wall next to the elevator door.
@@ -49,4 +51,52 @@ Using an elevator:
         * Wait for the doors to open. After the doors open, proceed forward through the doors to leave the elevator.
         * If you cannot exit in time and the doors close, return to the step marked %%.
 
+Daily Bicycle Maintenance:
+
+- Lift the bicycle, turn it upside down, and place it on the ground so that it is resting on the saddle.
+- Turn the headlight and taillight on.
+- If one of the lights does not illuminate:
+    + Turn the light back off.
+    + Remove the battery panel and the battery.
+    + Dispose of the battery.
+    + Replace the battery with a new one and close the battery panel.
+- Turn the headlight and taillight off.
+- Squeeze each tire gently with your thumb and index finger.
+- If when you squeeze, the air pressure is so low that the tire contracts when you apply pressure, that means you need to add air to that tire.
+- If when you squeeze, the tire is so rigid that your squeeze has no effect, that means that tire does not need extra air.
+- @@ If you have determined that need to add air to a tire:
+    + Locate the tire valve. It is located on the inside of the tire rim.
+    + After you have located the valve, twist the plastic cap counterclockwise until it comes off. Place the cap in your pocket for safe keeping.
+    + Locate the washer at the base of the valve.
+    + $$ Twist the washer counterclockwise only a little bit until it is loose, but still attached to the valve.
+    + Press the tip of your finger briefly against the tip of the valve. If you do not hear and feel any air escaping from the tire:
+        * Return to the step marked $$
+    + Locate the air pump. Follow the rubber hose to its end and locate the hose head.
+    + Place the hose head over the valve so that the valve fits inside the hole in the hose head.
+    + While pressing the head firmly against the valve, pull the switch on the back of the hose head to lock it in position.
+    + && With your hands, lift up the horizontal bar on the pump all the way and then press down until it cannot move any more.
+    + Locate the pressure indicator on the pump.
+    + If the arrow is pointing to a number less than 120 psi:
+        * return to the step marked &&.
+    + If the arrow is pointing to 120 psi or greater:
+        * In one quick, swift motion, press the switch on the back of the hose head while pulling it sharply away from the valve.
+        * Twist the washer on the valve clockwise until it is tight against the base of the valve.
+        * Retrieve the plastic cap from your pocket and twist it clockwise onto the valve until tight.
+        * If the other tire also needs air:
+            - return to the step marked @@ and repeat the same process on the other tire.
+- If this is the first time you are riding your bike in the current week:
+    + Examine the chain.
+    + Push on the pedals so that the chain moves.
+    + If there is a lot of dirt on the chain or if it is difficult to move the pedals:
+        * Retrieve your bottle of chain lubricant.
+        * Remove the cap from the bottle.
+        * Place the bottle so that the cap is resting on the bike chain.
+        * While holding the bottlecap against the chain, begin rotating the pedals.
+        * While rotating the pedals, squeeze the bottle gently to apply a small amount of lubricant to the chain.
+        * Continue rotating the pedals for a few seconds after you stop applying lubricant.
+        * Replace the lubricant bottlecap.
+        * Retrieve an old, clean towel.
+        * While gently enveloping the chain with the towel, rotate the pedals for a few seconds to remove extra grit and dirt.
+
+    
 
