@@ -1,0 +1,52 @@
+Using an elevator:
+
+- If there is a fire alarm sounding:
+    + Locate the stairs and take them instead. Do not take the elevator.
+- Determine which floor you need to go to and which floor you are currently on.
+- Approach the elevator
+- ## If there is no elevator with open doors:
+    + Locate the small panel on the wall next to the elevator with buttons.
+    + If the floor you want to go to is above the floor you are currently on: 
+     * This means you need to go up. Press the button with the upward facing arrow or the word 'up'.
+    + If the floor you want to go to is below the floor you are currently on:
+     * This means you need to go down. Press the button with the downward facing arrow or the word 'down'.
+    + && Wait for the sound of a bell.
+    + When you hear the bell, locate the elevator door that is opening or just opened.
+    + If there is no elevator doors have opened:
+        * Wait for another bell.
+        * If no elevator has arrived after two minutes, press the same button you pressed before and continue to wait.
+    + Locate the two arrow-shaped LED lights in frame of the open elevator. One points up, the other points down. One of the LED lights should now be lit.
+    + If there are not actually any LEDs in the frame:
+        * Enter the elevator.
+        * Turn around 180 degrees to face the elevator door if you are able to do so without bumping into people.
+    + If you determined that you need to go up and the upward-facing arrow is lit:
+        * Enter the elevator.
+        * Turn around 180 degrees to face the elevator door if you are able to do so without bumping into people.
+    + If you determined that you need to go down and the upward-facing arrow is lit:
+        * Return back to the step marked '&&'
+    + If you determined that you need to go down and the downward-facing arrow is lit:
+        * Enter the elevator.
+        * Turn around 180 degrees to face the elevator door if you are able to do so without bumping into people.
+     + If you determined that you need to go up and the downward-facing arrow is lit:
+        * Return back to the step marked '&&'
+    + If two minutes have elapsed and you do not hear a bell, return back to the step marked ##.
+- If there is already an elevator with open doors:
+    + Enter the elevator.
+    + Turn around 180 degrees to face the elevator door if you are able to do so without bumping into people.
+- While in the elevator:
+    + Do not initiate conversation or eye contact with strangers while in the elevator and try to ignore the muzak.
+    + If the elevator loses power or stops moving between floors:
+        * Locate the ALARM button and press it.
+- Locate the panel of buttons on the wall next to the elevator door.
+- %% Locate the button labeled with the floor you wish to go to and press this button.
+- If the button did not light up:
+    + Press the button again, but harder.
+- Locate the display above the elevator door or on the panel of buttons indicating the current floor. Watch this display and wait for the number of the floor you're going to to appear.
+- While the floor you're going to appears on the display:
+    + The elevator should stop. If it does not stop:
+        * Return to the step marked %%.
+    + If the elevator does stop:
+        * Wait for the doors to open. After the doors open, proceed forward through the doors to leave the elevator.
+        * If you cannot exit in time and the doors close, return to the step marked %%.
+
+
