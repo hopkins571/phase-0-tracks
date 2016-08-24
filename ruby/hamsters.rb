@@ -4,12 +4,11 @@ volume = -1
 until volume > 0
 	puts "On a scale from 1 to 10, how loud is your hamster?"
 	volume = gets.chomp.to_i
-	if volume == 0
+	if volume <= 0
 		puts "I'm sorry. Please enter a number from 1 to 10."
 	elsif volume > 10
 		puts "I'm sorry. Please enter a number from 1 to 10."
-	elsif volume < 0
-		puts "I'm sorry. Please enter a number from 1 to 10."		
+		volume = -1		
 	end
 end
 puts "What is your hamster's fur color?"
@@ -20,8 +19,10 @@ until adoptable != nil
 	canadopt = gets.chomp
 	if canadopt == "y"
 		adoptable = true
+		adoptstatement = "it is a good candidate for adoption"
 	elsif canadopt == "n"
 		adoptable = false
+		adoptstatement = "it is not a good candidate for adoption"
 	else
 		puts "I didn't understand you. Try again."
 	end
@@ -34,22 +35,17 @@ until validanswer == true
 	if age == "n/a"
 		age = nil
 		validanswer = true
-		agestatement = "Its age is unknown"
-	elsif agefloat < 0.0
+		agestatement = "Your hamster's age is unknown"
+	elsif agefloat <= 0.0
 		puts "I'm sorry. That is not a valid age."
-		validanswer = false
 	elsif agefloat > 0.0
 		validanswer = true
-		agestatement = "Its is about #{age} years old"
-	elsif agefloat = 0.0
-		puts "I'm sorry. That is not a valid age."
-		validanswer = false
+		agestatement = "Your hamster is about #{age} years old"
 	end
 end
-if canadopt == "y"
-	adoptstatement = "your hamster is a good candidate for adoption"
-elsif canadopt == "n"
-	adoptstatement = "your hamster is not a good candidate for adoption"
-end
-puts "So, if I've got things right, your hamster's name is #{name}. On a scale of 1 to 10, it has a volume level of #{volume}. Its fur color is #{color}. #{agestatement}, and #{adoptstatement}."
+puts "So, if I've got things right:"
+puts "Your hamster's name is #{name}."
+puts "On a scale from 1 to 10, it has a volume level of #{volume}."
+puts "It has #{color} fur."
+puts "#{agestatement}, and #{adoptstatement}."
 
