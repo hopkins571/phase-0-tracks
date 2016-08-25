@@ -1,9 +1,11 @@
+puts "Welcome, new employee!"
 puts "What is your name?"
 name = gets.chomp
 puts "What is your age in years?"
 age = gets.chomp.to_i
 puts "In what year were you born?"
 birthyear = gets.chomp.to_i
+# Loop for garlic bread order
 gb_order = nil
 until gb_order != nil
 	puts "Our company cafeteria serves garlic bread."
@@ -18,6 +20,7 @@ until gb_order != nil
 		puts "Please enter y or n."
 	end
 end
+# Loop for insurance enrollment
 hi_enroll = nil
 until hi_enroll != nil
 	puts "Our company offers health insurance."
@@ -32,3 +35,29 @@ until hi_enroll != nil
 		puts "Please enter y or n."
 	end
 end
+# Setting boolean variable if age is correct
+currentyear = Time.new.year
+rightage = false
+if (currentyear - age == birthyear) || (currentyear - age == birthyear + 1)
+	rightage = true
+end
+# Must set result variable to inconclusive by default
+result = "Results inconclusive."
+# First condition
+if rightage && (gb_order || hi_enroll)
+	result = "Probably not a vampire."
+end
+# Second condition
+if !rightage && (!gb_order || !hi_enroll)
+	result = "Probably a vampire."
+end
+# Third condition
+if !rightage && !gb_order && !hi_enroll
+	result = "Almost certainly a vampire."
+end
+# Fourth condition
+if (name == "Drake Cula") || (name == "Tu Fang")
+	result = "Definitely a vampire."
+end
+# Print result
+puts result
