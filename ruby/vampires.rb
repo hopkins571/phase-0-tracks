@@ -48,6 +48,19 @@ until emp_num == total_emp
 			puts "Please enter y or n."
 		end
 	end
+	# Allergy loop - so does this mean redheads are vampires?
+	allergies_done = false
+	puts "Please name all your allergies."
+	puts "Please enter one allergy per line."
+	puts "When you are finished, enter done."
+	until allergies_done == true
+		allergy = gets.chomp
+		if allergy == "sunshine"
+			allergies_done = true
+		elsif (allergy == "done") || (allergy == "done.") || (allergy == "Done") || (allergy == "Done.")
+			allergies_done = true
+		end
+	end
 	# Setting boolean variable if age is correct
 	currentyear = Time.new.year
 	rightage = false
@@ -69,7 +82,7 @@ until emp_num == total_emp
 		result = "Almost certainly a vampire."
 	end
 	# Fourth condition
-	if (name == "Drake Cula") || (name == "Tu Fang")
+	if (name == "Drake Cula") || (name == "Tu Fang") || (allergy == "sunshine")
 		result = "Definitely a vampire."
 	end
 	# Print result
