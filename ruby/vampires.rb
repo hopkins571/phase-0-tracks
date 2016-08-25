@@ -74,7 +74,7 @@ until emp_num == total_emp
 		result = "Probably not a vampire."
 	end
 	# Second condition
-	if !rightage && (!gb_order || !hi_enroll)
+	if (!rightage && (!gb_order || !hi_enroll)) || (allergy == "sunshine")
 		result = "Probably a vampire."
 	end
 	# Third condition
@@ -82,10 +82,13 @@ until emp_num == total_emp
 		result = "Almost certainly a vampire."
 	end
 	# Fourth condition
-	if (name == "Drake Cula") || (name == "Tu Fang") || (allergy == "sunshine")
+	if (name == "Drake Cula") || (name == "Tu Fang")
 		result = "Definitely a vampire."
 	end
 	# Print result
 	puts "#{name}: #{result}"
 	emp_num += 1
 end
+puts "Actually, never mind!"
+puts "What do these questions have to do with anything?"
+puts "Let's all be friends."
