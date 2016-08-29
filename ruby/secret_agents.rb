@@ -34,7 +34,7 @@ def encrypt(x)
   	  index += 1
     end
   end
-  p output
+  output
 end
 def decrypt(y)
 	alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -49,7 +49,7 @@ def decrypt(y)
 		  index += 1
 	    end
 	end
-	p output
+	output
 end
 # Ask user if they want to encrypt or decypt
 # Ask user for input (password)
@@ -65,12 +65,12 @@ action = gets.chomp
 	if action == "1"
 		puts "Please enter the password to encrypt."
 		password = gets.chomp
-		encrypt(password)
+		puts encrypt(password)
 		validresponse = true
 	elsif action == "2"
 		puts "Please enter the password to decrypt."
 		password = gets.chomp
-		decrypt(password)
+		puts decrypt(password)
 		validresponse = true
 	else
 		puts "That response was invalid. Please try again."
