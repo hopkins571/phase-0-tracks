@@ -55,3 +55,6 @@ encrypt("abc")
 encrypt("zed") 
 decrypt("bcd") 
 decrypt("afe")
+decrypt(encrypt("swordfish"))
+# The nested method call works because the encrypt method returns a valid string that can be used as an argument for the decrypt method. 
+# Furthermore, because the decrypt method was defined outside of the encrypt method both methods could be run within the same line of code.
