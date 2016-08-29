@@ -22,4 +22,36 @@
 # Add 1 to index.
 # End the loop.
 # Print variable output.
-
+def encrypt(x)
+  output = ""
+  index = 0
+  until index == x.length
+  	if x[index] == "z"
+      output += "a"
+      index += 1
+  	else
+  	  output += x[index].next!
+  	  index += 1
+    end
+  end
+  p output
+end
+def decrypt(y)
+	alphabet = "abcdefghijklmnopqrstuvwxyz"
+	output = ""
+	index = 0
+	until index == y.length
+		if y[index] == "a"
+		  output += "z"
+		  index += 1
+	    else
+		  output += alphabet[alphabet.index(y[index])-1]
+		  index += 1
+	    end
+	end
+	p output
+end
+encrypt("abc") 
+encrypt("zed") 
+decrypt("bcd") 
+decrypt("afe")
