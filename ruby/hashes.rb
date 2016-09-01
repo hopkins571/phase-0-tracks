@@ -12,3 +12,20 @@ until valid_age == true
 		valid_age = true
 	end
 end
+# Second input - number of kids - create loop until valid age entered
+# convert string input to integer
+# give user option for unknown - if unknown, change value to nil
+puts "How many kids do they have? Enter unknown if unknown."
+valid_kids = false
+until valid_kids == true
+	form[:kids] = gets.chomp
+	if form[:kids].to_i < 0
+		puts "I'm sorry. That response was invalid."
+	elsif form[:kids].downcase == "unknown"
+		form[:kids] = nil
+		valid_kids = true
+	else
+		form[:kids] = form[:kids].to_i
+		valid_kids = true
+	end
+end
