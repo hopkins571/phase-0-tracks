@@ -114,4 +114,23 @@ airport = {
 }
 # Print parent hash, check for errors
 puts airport
-
+# What's the status of the flight at gate 3 in terminal 2?
+puts airport[:terminal_2][:gates][:gate3][:flight_status]
+# Who is the chief flight attendant of the flight at gate 4, term 2?
+puts airport[:terminal_2][:gates][:gate4][:flight_attendants][0]
+# What is the last restaurant in terminal 1?
+puts airport[:terminal_1][:restaurants].last
+# Uh oh, the flight to New York was just canceled
+airport[:terminal_2][:gates][:gate3][:flight_status] = 'canceled'
+airport[:terminal_2][:gates][:gate3][:est_depart] = nil
+airport[:terminal_2][:gates][:gate3][:seats_available] = false
+# Print to confirm
+puts airport[:terminal_2][:gates][:gate3]
+# Due to health concerns, the Chipotle in terminal 1 has closed
+airport[:terminal_1][:restaurants].delete('Chipotle')
+# Print to confirm
+puts airport[:terminal_1][:restaurants]
+# And a Burrito Bus has opened in its place
+airport[:terminal_1][:restaurants] << 'Burrito Bus'
+puts "New restaurant"
+puts airport[:terminal_1][:restaurants]
