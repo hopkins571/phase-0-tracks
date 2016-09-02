@@ -24,3 +24,28 @@ end
 int = 100
 arr = [1,2,3,4,5,10,100,765]
 puts search(int,arr)
+
+def fib(n)
+	# Start with index of zero, iterate through indices until n value is reached
+	index = 0
+	array = []
+	until index == n
+		# if index 0, add 0 to array
+	    if index == 0
+	        array << 0
+	        index += 1
+	    elsif index == 1
+	    	# if index 1, add 1 to array
+	        array << 1
+	        index += 1
+	    else
+	    	# else add values of previous two indices to new value in array
+	        array << (array[index-2] + array[index-1])
+	        index += 1
+	    end
+	end
+	# return completed array
+	array
+end
+
+fib(100).last
