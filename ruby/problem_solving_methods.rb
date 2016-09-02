@@ -48,4 +48,27 @@ def fib(n)
 	array
 end
 
-fib(100).last
+puts fib(100).last
+
+# Sort array of integers from largest to smallest
+# define method with one input parameter - an array of integers
+# iterate through each index of array 'number'
+# if number is less than value of following index of array, swap
+# repeat until number <= value of following index of array
+# continue iterating through indices
+
+def sorter(array)
+	loop do
+		swapped = false
+		(array.length - 1).times do |i|
+			if array[i] < array[i+1]
+				array[i], array[i+1] = array[i+1], array[i]
+				swapped = true
+			end
+		end
+		break if not swapped
+	end
+	array
+end
+
+puts sorter([3,500,10,88,34,2,1500])
