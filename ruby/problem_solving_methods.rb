@@ -7,25 +7,20 @@ def search(integer,array)
 	# compare value of integer to array at current index
 	while index < array.length
 		output = nil
-		array.each do |number|
-			# if equal to one another, return output of index
-			if array[index] == integer
-				output = index
-			# Else return output
-			else
-				output = nil
-				output
-			end
+		# if equal to one another, return output of index and break
+		if array[index] == integer
+			output = index
+			break
+		# Else return output of nil and advance index
+		else
+			output = nil
+			index +=1
 		end
-	# Must break loop if output not equal to nil so index of hit doesn't get overwritten
-	if output != nil
-		break
-	end
-	index += 1
 	end
 	output
 end
 
-int = 101
+
+int = 100
 arr = [1,2,3,4,5,10,100,765]
 puts search(int,arr)
