@@ -35,3 +35,10 @@ def spynamer(realname)
 	spyname = spyname_array.join(" ")
 	spyname
 end
+loop do
+	puts "Please enter a name:"
+	puts "Enter quit to quit."
+	name = gets.chomp
+	break if name.downcase == "quit"
+	puts spynamer(name)
+end
