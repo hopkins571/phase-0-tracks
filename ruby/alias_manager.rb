@@ -35,10 +35,21 @@ def spynamer(realname)
 	spyname = spyname_array.join(" ")
 	spyname
 end
+# loop do
+# 	puts "Please enter a name:"
+# 	puts "Enter quit to quit."
+# 	name = gets.chomp
+# 	break if name.downcase == "quit"
+# 	puts spynamer(name)
+# end
+names = {}
 loop do
 	puts "Please enter a name:"
-	puts "Enter quit to quit."
-	name = gets.chomp
-	break if name.downcase == "quit"
-	puts spynamer(name)
+	puts "Enter quit when done."
+	real_name = gets.chomp
+	break if real_name.downcase == "quit"
+	names[real_name] = spynamer(real_name)
+end
+names.each do |human_name, spy_name|
+	puts "#{human_name} is also known as #{spy_name}!"
 end
