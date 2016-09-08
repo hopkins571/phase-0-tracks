@@ -45,10 +45,29 @@ class Kitten
 	end
 end
 
-mr_meows = Kitten.new
-mr_meows.litterbox(true)
-mr_meows.hunt_bugs(4)
-mr_meows.litterbox(false)
+# mr_meows = Kitten.new
+# mr_meows.litterbox(true)
+# mr_meows.hunt_bugs(4)
+# mr_meows.litterbox(false)
 
+# 50.times do |i|
+# 	Kitten.new
+# end
 
+litter = []
+50.times do
+	litter << Kitten.new
+end
+
+litter.each do |kitty|
+	if litter.index(kitty) % 2 == 1
+		kitty.litterbox(false)
+	else
+		kitty.litterbox(true)
+	end
+end
+
+litter.each do |kitty|
+	kitty.hunt_bugs(1)
+end
 
