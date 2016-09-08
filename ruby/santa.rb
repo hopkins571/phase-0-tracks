@@ -1,12 +1,12 @@
 class Santa
-	attr_reader :ethnicity
+	attr_reader :ethnicity, :reindeer_ranking
 	attr_accessor :gender, :age
 	def initialize(gender, ethnicity)
 		puts "Initializing Santa instance ..."
 		@gender = gender
 		@ethnicity = ethnicity
 		@reindeer_ranking = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
-		@age = 0
+		@age = (0..140).to_a.sample
 	end
 	def speak
 		puts "Ho, ho, ho! Haaaappy holidays!"
@@ -39,25 +39,24 @@ class Santa
 	# def ethnicity
 	# 	@ethnicity
 	# end
-	def least_fave_reindeer
-		@reindeer_ranking[-1]
-	end
 	def random_age
 		@age = (1..100).to_a.sample
 	end
 end
 example_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A"]
 example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A"]
+reindeers = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
 santaplex = []
-5.times do |i|
+200.times do |i|
 	santaplex << Santa.new(example_genders.sample,example_ethnicities.sample)
 end
-santaplex.each do |i|
-	i.age = (0..140).to_a.sample
-end
+# puts santaplex
+
 
 santaplex.each do |i|
-	puts "Age: #{@age}, gender: #{@gender}, ethnicity: #{@ethnicity}"
+	i.get_mad_at(reindeers.sample)
+	puts "Santa is #{i.gender}, #{i.ethnicity}, and #{i.age} years old."
+	puts "Santa is mad at #{i.reindeer_ranking[-1]}."
 end
 
 
