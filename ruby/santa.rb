@@ -1,6 +1,6 @@
 class Santa
-	attr_reader :age, :ethnicity
-	attr_accessor :gender
+	attr_reader :ethnicity
+	attr_accessor :gender, :age
 	def initialize(gender, ethnicity)
 		puts "Initializing Santa instance ..."
 		@gender = gender
@@ -46,22 +46,37 @@ class Santa
 		@age = (1..100).to_a.sample
 	end
 end
-
 example_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A"]
 example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A"]
-billybob = Santa.new(example_genders.sample,example_ethnicities.sample)
-puts billybob.print_demos
-billybob.celebrate_birthday
-puts billybob.print_demos
-puts billybob.age
-billybob.gender = "genderqueer"
-puts billybob.print_demos
-puts billybob.least_fave_reindeer
-billybob.get_mad_at("Vixen")
-puts billybob.least_fave_reindeer
-billybob.random_age
-puts billybob.age
-puts billybob.ethnicity
+santaplex = []
+5.times do |i|
+	santaplex << Santa.new(example_genders.sample,example_ethnicities.sample)
+end
+santaplex.each do |i|
+	i.age = (0..140).to_a.sample
+end
+
+santaplex.each do |i|
+	puts "Age: #{@age}, gender: #{@gender}, ethnicity: #{@ethnicity}"
+end
+
+
+
+# example_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A"]
+# example_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A"]
+# billybob = Santa.new(example_genders.sample,example_ethnicities.sample)
+# puts billybob.print_demos
+# billybob.celebrate_birthday
+# puts billybob.print_demos
+# puts billybob.age
+# billybob.gender = "genderqueer"
+# puts billybob.print_demos
+# puts billybob.least_fave_reindeer
+# billybob.get_mad_at("Vixen")
+# puts billybob.least_fave_reindeer
+# billybob.random_age
+# puts billybob.age
+# puts billybob.ethnicity
 
 # groovy_santas = []
 # 5.times do |i|
