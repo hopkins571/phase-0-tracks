@@ -57,3 +57,16 @@ def print_list(hash)
 		puts "You need to buy #{quantity} #{item}."
 	end
 end
+
+list = create_list("")
+puts list
+list = add_item(list,"lemonade",2)
+list = add_item(list,"tomatoes",3)
+list = add_item(list,"onions",1)
+list = add_item(list,"ice cream",4)
+list = delete_item(list,"lemonade")
+list = update_quantity(list,"ice cream",1)
+
+puts list
+print_list(list)
+
