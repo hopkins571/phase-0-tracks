@@ -107,7 +107,7 @@ puts "Welcome to MindReader."
 puts "User 1, please enter a word for user 2 to guess:"
 guess_word = gets.chomp
 validinput = false
-if guess_word.chars.include?("-")
+if guess_word.chars.include?("_")
 	until validinput == true
 		puts "I'm sorry. The word cannot include '_'. Please try again."
 		guess_word = gets.chomp
