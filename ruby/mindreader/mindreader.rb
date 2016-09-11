@@ -51,7 +51,7 @@ class MindReader
 		@won = false
 		@is_over = false
 		@display_word = []
-		word_to_guess.length.times { @display_word << "-" }
+		word_to_guess.length.times { @display_word << "_" }
 	end
 
 	def guess(guessed_char)
@@ -61,14 +61,14 @@ class MindReader
 			if @keyword.include?(guessed_char)
 				until !@keyword.include?(guessed_char)
 					@display_word[@keyword.index(guessed_char)] = guessed_char
-					@keyword[@keyword.index(guessed_char)] = "-"
+					@keyword[@keyword.index(guessed_char)] = "_"
 					success = true
 				end
 			else
 				@guess_count += 1
 			end
 			@guesses << guessed_char
-			if !@display_word.include?("-") && @guess_count < @guesses_allowed
+			if !@display_word.include?("_") && @guess_count < @guesses_allowed
 				@won = true
 				@is_over = true
 			elsif @guess_count == @guesses_allowed
@@ -79,3 +79,75 @@ class MindReader
 	end
 end
 
+# UI
+# Prompt user 1 for word to guess
+# IF input includes "-"
+# => THEN print invalid input
+# => UNTIL user provides input without "-", prompt for input
+# create new MindReader game with input parameter of guess word
+# clear screen
+# prompt user 2 to press return when ready
+# WHILE game is not over
+# => print "guess this word"
+# => print display word to string joined by spaces
+# => print "enter character to guess"
+# 	get input
+# => IF input length > 1 or if input equals "-", invalid input - loop until valid input given
+# new variable guess succeeded - result of running guess method with user input
+# IF guess succeeded is true
+# 	THEN display encouraging message
+# ELSE display discouraging message
+# check for game over / game won
+# IF game over & game won
+# display congratulatory message
+# ELSIF game over & not won
+# display taunting message
+
+puts "Welcome to MindReader."
+puts "User 1, please enter a word for user 2 to guess:"
+guess_word = gets.chomp
+validinput = false
+if guess_word.chars.include?("-")
+	until validinput == true
+		puts "I'm sorry. The word cannot include '_'. Please try again."
+		guess_word = gets.chomp
+		if !guess_word.chars.include?("_")
+			validinput = true
+		end
+	end
+end
+game = MindReader.new(guess_word)
+system "clear"
+puts "User 2, please enter return to continue."
+blank = gets.chomp
+while !game.is_over
+	puts "Guess this word: #{game.display_word.join(" ")}"
+	puts "Enter a character to guess."
+	if game.guesses_allowed - game.guess_count == 1
+		puts "You have one guess remaining."
+	else
+		puts "You have #{game.guesses_allowed - game.guess_count} guesses remaining."
+	end
+	validinput = false
+	until validinput == true
+		user_guess = gets.chomp
+		if user_guess.length > 1 || user_guess == "_"
+			puts "Invalid input."
+			puts "Please enter only one character, excluding '_'."
+		else
+			validinput = true
+		end
+	end
+	guess_succeeded = game.guess(user_guess)
+	if guess_succeeded
+		puts "Right on!"
+		puts "You got it!"
+	else
+		puts "Sorry, no luck! :("
+	end
+	if game.is_over && game.won
+		puts "Awesome, you won! #{game.display_word.join(" ")}"
+	elsif game.is_over && !game.won
+		puts "You lost! Booo! :-P"
+	end
+end
