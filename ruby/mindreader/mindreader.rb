@@ -35,4 +35,47 @@
 # ELSIF guess count equals guesses allowed
 # => THEN won is false, game over is true
 
+class MindReader
+	attr_reader :guess_count
+	attr_reader :is_over
+	attr_reader :guesses_allowed
+	attr_reader :display_word
+	attr_reader :won
+	attr_reader :keyword
+
+	def initialize(word_to_guess)
+		@keyword = word_to_guess.downcase.chars
+		@guesses_allowed = (1.5 * word_to_guess.length).to_i
+		@guesses = []
+		@guess_count = 0
+		@won = false
+		@is_over = false
+		@display_word = []
+		word_to_guess.length.times { @display_word << "-" }
+	end
+
+	def guess(guessed_char)
+		success = false
+		guessed_char.downcase!	
+		if !@guesses.include?(guessed_char)
+			if @keyword.include?(guessed_char)
+				until !@keyword.include?(guessed_char)
+					@display_word[@keyword.index(guessed_char)] = guessed_char
+					@keyword[@keyword.index(guessed_char)] = "-"
+					success = true
+				end
+			else
+				@guess_count += 1
+			end
+			@guesses << guessed_char
+			if !@display_word.include?("-") && @guess_count < @guesses_allowed
+				@won = true
+				@is_over = true
+			elsif @guess_count == @guesses_allowed
+				@is_over = true
+			end
+		end
+		success
+	end
+end
 
