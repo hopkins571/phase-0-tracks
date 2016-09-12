@@ -146,11 +146,12 @@ puts "Welcome to MindReader."
 puts "User 1, please enter a word or phrase for user 2 to guess:"
 guess_word = gets.chomp
 validinput = false
-if guess_word.chars.include?("_")
+if guess_word.chars.include?("_") || guess_word.length < 3
 	until validinput == true
-		puts "I'm sorry. Your input cannot include '_'. Please try again."
+		puts "Your input cannot include '_' and must be at least 3 characters."
+		puts "Please try again."
 		guess_word = gets.chomp
-		if !guess_word.chars.include?("_")
+		if !guess_word.chars.include?("_") && guess_word.length >= 3
 			validinput = true
 		end
 	end
