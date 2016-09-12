@@ -42,16 +42,50 @@ class MindReader
 	attr_reader :display_word
 	attr_reader :won
 	attr_reader :keyword
+	attr_reader :is_phrase
 
 	def initialize(word_to_guess)
 		@keyword = word_to_guess.downcase.chars
-		@guesses_allowed = (1.5 * word_to_guess.length).to_i
+		@guesses_allowed = (1.3 * word_to_guess.length).to_i
 		@guesses = []
 		@guess_count = 0
 		@won = false
 		@is_over = false
 		@display_word = []
-		word_to_guess.length.times { @display_word << "_" }
+		if word_to_guess.split.length > 1
+			@is_phrase = true
+		else
+			@is_phrase = false
+		end
+		word_to_guess.chars.each do |char|
+			if char == " "
+				@display_word << " "
+				@guesses << " "
+			elsif char == "'"
+				@display_word << "'"
+				@guesses << "'"
+			elsif char == "-"
+				@display_word << "-"
+				@guesses << "-"
+			elsif char == "."
+				@display_word << "."
+				@guesses << "."
+			elsif char == "!"
+				@display_word << "!"
+				@guesses << "!"
+			elsif char == ","
+				@display_word << ","
+				@guesses << ","
+			elsif char == "?"
+				@display_word << "?"
+				@guesses << "?"
+			elsif char == "&"
+				@display_word << "&"
+				@guesses << "&"
+			else
+				@display_word << "_"
+			end
+		end
 	end
 
 	def guess(guessed_char)
@@ -104,12 +138,12 @@ end
 # display taunting message
 
 puts "Welcome to MindReader."
-puts "User 1, please enter a word for user 2 to guess:"
+puts "User 1, please enter a word or phrase for user 2 to guess:"
 guess_word = gets.chomp
 validinput = false
 if guess_word.chars.include?("_")
 	until validinput == true
-		puts "I'm sorry. The word cannot include '_'. Please try again."
+		puts "I'm sorry. Your input cannot include '_'. Please try again."
 		guess_word = gets.chomp
 		if !guess_word.chars.include?("_")
 			validinput = true
@@ -121,7 +155,11 @@ system "clear"
 puts "User 2, please enter return to continue."
 blank = gets.chomp
 while !game.is_over
-	puts "Guess this word: #{game.display_word.join(" ")}"
+	if game.is_phrase
+		puts "Guess this phrase: #{game.display_word.join(" ")}"
+	else
+		puts "Guess this word: #{game.display_word.join(" ")}"
+	end
 	puts "Enter a character to guess."
 	if game.guesses_allowed - game.guess_count == 1
 		puts "You have one guess remaining."
