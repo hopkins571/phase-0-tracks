@@ -43,45 +43,50 @@ class MindReader
 	attr_reader :won
 	attr_reader :keyword
 	attr_reader :is_phrase
+	attr_reader :guesses
 
 	def initialize(word_to_guess)
 		@keyword = word_to_guess.downcase.chars
-		@guesses_allowed = (1.3 * word_to_guess.length).to_i
-		@guesses = []
-		@guess_count = 0
-		@won = false
-		@is_over = false
-		@display_word = []
 		if word_to_guess.split.length > 1
 			@is_phrase = true
 		else
 			@is_phrase = false
 		end
+		if @is_phrase
+			@guesses_allowed = word_to_guess.split.length * 3
+		else
+			@guesses_allowed = word_to_guess.length
+		end
+		@guesses = []
+		@guess_count = 0
+		@won = false
+		@is_over = false
+		@display_word = []
 		word_to_guess.chars.each do |char|
 			if char == " "
-				@display_word << " "
-				@guesses << " "
+				@display_word << char
+				@guesses << char
 			elsif char == "'"
-				@display_word << "'"
-				@guesses << "'"
+				@display_word << char
+				@guesses << char
 			elsif char == "-"
-				@display_word << "-"
-				@guesses << "-"
+				@display_word << char
+				@guesses << char
 			elsif char == "."
-				@display_word << "."
-				@guesses << "."
+				@display_word << char
+				@guesses << char
 			elsif char == "!"
-				@display_word << "!"
-				@guesses << "!"
+				@display_word << char
+				@guesses << char
 			elsif char == ","
-				@display_word << ","
-				@guesses << ","
+				@display_word << char
+				@guesses << char
 			elsif char == "?"
-				@display_word << "?"
-				@guesses << "?"
+				@display_word << char
+				@guesses << char
 			elsif char == "&"
-				@display_word << "&"
-				@guesses << "&"
+				@display_word << char
+				@guesses << char
 			else
 				@display_word << "_"
 			end
@@ -96,8 +101,8 @@ class MindReader
 				until !@keyword.include?(guessed_char)
 					@display_word[@keyword.index(guessed_char)] = guessed_char
 					@keyword[@keyword.index(guessed_char)] = "_"
-					success = true
 				end
+				success = true
 			else
 				@guess_count += 1
 			end
@@ -169,7 +174,7 @@ while !game.is_over
 	validinput = false
 	until validinput == true
 		user_guess = gets.chomp
-		if user_guess.length > 1 || user_guess == "_"
+		if user_guess.length != 1 || user_guess == "_"
 			puts "Invalid input."
 			puts "Please enter only one character, excluding '_'."
 		else
@@ -178,8 +183,7 @@ while !game.is_over
 	end
 	guess_succeeded = game.guess(user_guess)
 	if guess_succeeded
-		puts "Right on!"
-		puts "You got it!"
+		puts "Right on! You got it, champ!"
 	else
 		puts "Sorry, no luck! :("
 	end
