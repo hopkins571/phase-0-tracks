@@ -7,3 +7,13 @@
 // loop behavior: add the character of text at index i to newstring
 // function returns newstring
 
+function reverse(text) {
+	var newstring = "";
+	for (var i = (text.length - 1); i >= 0; i--) { newstring += text[i] };
+	return newstring
+};
+console.log(reverse("jello!"));
+var reversed_str = reverse("grizzly bear!");
+if (reversed_str == "!raeb ylzzirg") {
+	console.log(reversed_str);
+}
