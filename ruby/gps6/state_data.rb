@@ -1,5 +1,8 @@
 #population density is number of people per square mile as of 2012
 #this data is updated every year with estimates from a 10 year census
+# the keys in hashy hash are hashes! awesome! we can add more stats to that hash if we want.
+# STATE_DATA is a local variable that can be accessed through the whole script
+# we can iterate through it and create a new data structure for our methods' outputs
 
 
 STATE_DATA = {

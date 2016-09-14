@@ -1,10 +1,11 @@
 # Virus Predictor
 
-# I worked on this challenge [by myself, with: ].
+# I worked on this challenge by myself.
 # We spent [#] hours on this challenge.
 
 # EXPLANATION OF require_relative
-#
+# all content of the linked file is now contained in this one by reference
+# require_relative uses relative path, whereas 'require' would need an absolute path
 #
 require_relative 'state_data'
 
