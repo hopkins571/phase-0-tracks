@@ -1,7 +1,7 @@
 # Virus Predictor
 
 # I worked on this challenge by myself.
-# We spent [#] hours on this challenge.
+# We spent 1.5 hours on this challenge.
 
 # EXPLANATION OF require_relative
 # all content of the linked file is now contained in this one by reference
@@ -24,21 +24,24 @@ class VirusPredictor
 # Prints the results of two methods: predicted_deaths and speed_of_spread
 
   def virus_effects
-    predicted_deaths(@population_density, @population, @state)
-    speed_of_spread(@population_density, @state)
+    predicted_deaths #(@population_density, @population, @state)
+    speed_of_spread #(@population_density, @state)
     puts @state.upcase + ":"
     puts "Total number of deaths: #{@number_of_deaths}"
-    puts "Time for outbreak to spread across state: #{@speed} months\n\n"
+    puts "Time for outbreak to spread across state: #{@speed} months"
+    puts ""
     # print "#{@state} will lose #{@number_of_deaths} and the outbreak will spread across the state in #{@speed} months.\n\n"
   end
 
   private
 
+  # private 
+
 # predicts deaths based on inputs of population density, population, and state
 # depending on population density, different multiplier will be used with population to calculate deaths
 # prints output as string, but no method output
 
-  def predicted_deaths(population_density, population, state)
+  def predicted_deaths
     # predicted deaths is solely based on population density
     if @population_density >= 200
       @number_of_deaths = (@population * 0.4).floor
@@ -59,7 +62,7 @@ class VirusPredictor
   # calculate speed of spread based on population density
   # prints result as string, but no method output
 
-  def speed_of_spread(population_density, state) #in months
+  def speed_of_spread #in months
     # We are still perfecting our formula here. The speed is also affected
     # by additional factors we haven't added into this functionality.
     @speed = 0.0
@@ -104,11 +107,31 @@ end
 # (belongs outside the class because each instance is for only one state)
 
 STATE_DATA.each do | state, stats |
-  report = VirusPredictor.new(state, STATE_DATA[state][:population_density], STATE_DATA[state][:population])
+  report = VirusPredictor.new(state, stats[:population_density], stats[:population])
   report.virus_effects
 end
 
-
-
 #=======================================================================
 # Reflection Section
+# Hashy hash uses the hash rocket to associate keys with their values.
+# This has to be used when keys are strings rather than symbols.
+# The smaller hash with the stats uses symbol colon notation
+# this is a nice shortcut when you can have symbols for your keys
+# # EXPLANATION OF require_relative
+# all content of the linked file is now contained in this one by reference
+# require_relative uses relative path, whereas 'require' would need an absolute path
+# iterating through a hash 
+# .each do | key, value |
+# .each_key do |key|
+# .each_value do |value|
+# I suppose you could create a for loop and specify some really wacky conditions
+# to pull specific cases from the hash and only perform operations on that
+# I was confused that these class methods were accepting parameters that were already 
+# class variables - that seemed weird and overly complicated to me, so to simplify,
+# I changed the purpose of the method to merely calculate, rather than to print a result
+# The other methods can set class attributes that the virus_effects method can print
+# in a more readable way
+# I enjoyed the experience cleaning up code to make it more efficient and readable.
+# This challenge helped me see the importance of scope in variables, especially when 
+# working with classes.
+
