@@ -9,7 +9,7 @@
 
 function returnLongest(arrayOfStrings) {
 	var longestWord = arrayOfStrings[0];
-	for (i = 1; i <= (arrayOfStrings.length - 1); i++) {
+	for (var i = 1; i <= (arrayOfStrings.length - 1); i++) {
 		if (longestWord.length < arrayOfStrings[i].length) {
 			 longestWord = arrayOfStrings[i];
 		}
@@ -27,13 +27,29 @@ function returnLongest(arrayOfStrings) {
 // RETURN hasSharedPair
 
 
+function compareObjs(object1,object2) {
+	hasSharedPair = false;
+	for (var key in object1) {
+		if (object1[key] == object2[key]) {
+			hasSharedPair = true;
+		}
+	}
+	return hasSharedPair;
+}
 
 
-
+// DRIVER CODE:
 
 var testArray = ["long", "longest", "etetetetetetettetetetetetetetetetetettetetetete", "etes,th.stphsoennet", "3394949494933"];
 var anotherArray = ["1", "22", "999999999", "666666", "4444", "7777777", "55555", "333", "88888888"]
 
 console.log(returnLongest(testArray));
-console.log(returnLongest(anotherArray))
+console.log(returnLongest(anotherArray));
+
+var cat = {name: "Fluffy", age: 8, demeanor: "unfriedly"};
+var dog = {name: "Fido", age: 8, demeanor: "friendly"};
+var ferret = {name: "Arnold", age: 2, demeanor: "friendly"};
+console.log(compareObjs(cat,dog));
+console.log(compareObjs(cat,ferret));
+console.log(compareObjs(dog,ferret));
 
