@@ -48,7 +48,7 @@ function compareObjs(object1,object2) {
 // RETURN arrayOfWords
 
 function arrayGenerator(numOfWords) {
-	var randomWords = ["a", "by", "tan", "tree", "peach", "writes", "munches", "quibbles", "airplanes", "squigglier", "ayatollah", "chowder", "vine", "gizmo", "map", "up", "jazz", "geography", "antiviral"];	var arrayOfWords = [];
+	var randomWords = ["a", "by", "tan", "tree", "peach", "writes", "munches", "quibbles", "airplanes", "squigglier", "ayatollah", "chowder", "vine", "gizmo", "map", "up", "jazz", "geography", "antiviral"];
 	var arrayOfWords = [];
 	if (numOfWords > 0) {
 		for (var x = 1; x <= numOfWords; x++) {
