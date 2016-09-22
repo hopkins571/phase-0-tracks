@@ -1,0 +1,42 @@
+1:
+COMMAND: SELECT * FROM guests;
+OUTPUT:
+1|Raj|1|Mike|true|3
+2|Jenny|1|Sarah|false|2
+3|Tamika|1|Marty|false|1
+4|Vipul|2|Anja|true|3
+5|Mark|2|Todd|true|1
+6|Jayden|2|n/a|false|4
+7|Chris|2|Eva|true|2
+
+2: Chris is feeling uneasy about the tartare... time for a different option.
+COMMAND: UPDATE guests SET dinner_selection=1 WHERE id=7;
+OUTPUT: none. confirmed this was completed correctly by running SELECT * FROM guests WHERE id=7;
+
+3:
+COMMAND: SELECT * FROM guests JOIN menus ON guests.dinner_selection = menus.id;
+OUTPUT: 
+1|Raj|1|Mike|true|3|3|tofu bibimbop
+2|Jenny|1|Sarah|false|2|2|steak tartare
+3|Tamika|1|Marty|false|1|1|roast pheasant
+4|Vipul|2|Anja|true|3|3|tofu bibimbop
+5|Mark|2|Todd|true|1|1|roast pheasant
+6|Jayden|2|n/a|false|4|4|peanut butter and jelly
+7|Chris|2|Eva|true|1|1|roast pheasant
+
+4:
+COMMAND: SELECT guests.name, guests.table_number, menus.dinner_option FROM guests JOIN menus ON guests.dinner_selection = menus.id;
+OUTPUT:
+Raj|1|tofu bibimbop
+Jenny|1|steak tartare
+Tamika|1|roast pheasant
+Vipul|2|tofu bibimbop
+Mark|2|roast pheasant
+Jayden|2|peanut butter and jelly
+Chris|2|roast pheasant
+
+5: No kids allowed at this banquet! Time to delete any suspicious guests who ordered PB&J...
+
+COMMAND: DELETE FROM guests WHERE dinner_selection=4;
+OUTPUT: none. confirmed success by running SELECT * FROM guests;
+
