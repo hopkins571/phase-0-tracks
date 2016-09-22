@@ -40,3 +40,28 @@ Chris|2|roast pheasant
 COMMAND: DELETE FROM guests WHERE dinner_selection=4;
 OUTPUT: none. confirmed success by running SELECT * FROM guests;
 
+-*-*-*-*-*-*-*-
+
+COMMAND: sqlite> SELECT guests.name, menus.dinner_option, guests.table_number
+   ...> FROM guests
+   ...> INNER JOIN menus
+   ...> ON guests.dinner_selection=menus.dinner_option;
+sqlite> SELECT guests.name, menus.dinner_option, guests.table_number
+   ...> FROM guests
+   ...> INNER JOIN menus
+   ...> ON guests.dinner_selection=menus.id;
+
+   OUTPUT:
+Raj|tofu bibimbop|1
+Jenny|steak tartare|1
+Tamika|roast pheasant|1
+Vipul|tofu bibimbop|2
+Mark|roast pheasant|2
+Chris|roast pheasant|2
+
+sqlite> SELECT guests.name, menus.dinner_option, guests.table_number FROM guests INNER JOIN menus ON guests.dinner_selection=menus.id WHERE guests.dinner_selection=1;
+Tamika|roast pheasant|1
+Mark|roast pheasant|2
+Chris|roast pheasant|2
+
+
