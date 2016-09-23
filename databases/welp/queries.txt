@@ -1,0 +1,22 @@
+SELECT * FROM reviews JOIN users ON reviews.user_id=users.id JOIN businesses ON reviews.business_id=businesses.id;
+
+1|5|wow!|1|1|1|Brad|Pitt|1|Sushi World
+2|3|super average|2|2|2|Steven|Wonder|2|Lotus Yoga
+3|1|this was bad|3|3|3|Angela|Jolie|3|Dev Bootcamp
+4|2|just below super average|1|2|2|Steven|Wonder|1|Sushi World
+5|4|jsut below wow!|3|1|1|Brad|Pitt|3|Dev Bootcamp
+
+
+
+
+SELECT users.first_name, users.last_name, reviews.stars, reviews.comment, businesses.name FROM reviews INNER JOIN users ON reviews.user_id=users.id INNER JOIN businesses ON reviews.business_id=businesses.id;
+
+Brad|Pitt|5|wow!|Sushi World
+Steven|Wonder|3|super average|Lotus Yoga
+Angela|Jolie|1|this was bad|Dev Bootcamp
+Steven|Wonder|2|just below super average|Sushi World
+Brad|Pitt|4|jsut below wow!|Dev Bootcamp
+
+SELECT * FROM reviews JOIN users ON reviews.user_id=users.id JOIN businesses ON reviews.business_id=businesses.id WHERE businesses.id=1;
+
+4|2|just below super average|1|2|2|Steven|Wonder|1|Sushi World
