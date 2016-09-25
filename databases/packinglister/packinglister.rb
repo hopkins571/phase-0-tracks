@@ -98,14 +98,25 @@ if create_new_user
 	puts "Welcome, #{new_username}. Let's get started creating a new packing list."
 
 else
+	# need to verify pin
+	puts "Please enter your PIN."
+	actual_pin = db.execute("SELECT pin FROM users WHERE id = ?", [selected_user])[0]["pin"].to_i
+	check_pin = nil
+	until check_pin.to_i == actual_pin
+		check_pin = gets.chomp
+		if check_pin.to_i != actual_pin
+			puts "Invalid PIN. Please try again."
+		end
+	end
+
 	# get all this user's lists - each list will be an array - index 0 id, 1 dest, 2 date, 3 list-blob
 	all_user_lists = db.execute("SELECT id, destination, depart_date FROM lists WHERE user_id = ?", [selected_user])
 	# make array of valid list IDs
 	valid_list_ids = []
 	all_user_lists.each { | individual_list |  valid_list_ids << individual_list["id"] }
-	p all_user_lists.class
-	p all_user_lists[0]
-	p valid_list_ids
+	# p all_user_lists.class
+	# p all_user_lists[0]
+	# p valid_list_ids
 	# p all_user_lists
 	if all_user_lists.empty?
 		puts "You don't have any saved lists. Let's create a new one!"
