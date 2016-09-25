@@ -66,6 +66,7 @@ if !all_users.empty?
 			create_new_user = false
 		elsif selected_user.downcase == "new"
 			create_new_user = true
+			create_new_list = true
 		else
 			puts "Invalid input. Try again."
 		end
@@ -73,4 +74,33 @@ if !all_users.empty?
 # if there are no 
 else
 	create_new_user = true
+	create_new_list = true
 end
+
+if create_new_user
+	puts "Please enter your name:"
+	new_username = gets.chomp # create and run method to check if name valid?
+	new_pin = nil
+	verify_pin = []
+
+	until new_pin == verify_pin
+		puts "Please enter a PIN."
+		new_pin = gets.chomp
+		puts "Please re-enter your PIN."
+		verify_pin = gets.chomp
+
+		if new_pin != verify_pin
+			puts "Your PIN entries did not match. Please try again."
+		end
+	end
+
+	db.execute("INSERT INTO users (name, pin) VALUES (?, ?)", [new_username, new_pin])
+	puts "Welcome, #{new_username}. Let's get started creating a new packing list."
+
+else
+	# get all this user's lists
+	all_user_lists = db.execute("SELECT id, destination, depart_date FROM lists WHERE user_id = ?", [selected_user])
+	p all_user_lists.class
+	p all_user_lists
+end
+
