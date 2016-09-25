@@ -198,16 +198,7 @@ end
 # get info from list to feed into new class instance
 
 list_data = db.execute("SELECT * FROM lists WHERE id = ?", [list_to_load])
-# p list_data.class
-# p list_data
-# test_list = {
-# 	"socks" => true,
-# 	"shoes" => false
-# }.to_s
-# p test_list
-# p list_data.class
-# p list_data
-# db.execute("UPDATE lists SET items = ? WHERE id = 1", [test_list])
+
 active_list = PackingList.new(db,list_data[0]["user_id"],list_data[0]["id"],eval(list_data[0]["items"]))
 
 # initialize list
@@ -215,11 +206,14 @@ active_list = PackingList.new(db,list_data[0]["user_id"],list_data[0]["id"],eval
 
 loop do
 	system "clear"
+
 	if active_list.packing_list.empty?
 		puts "Your packing list for your trip to #{active_list.destination} departing #{active_list.departure_date}"
 		puts "is currently empty."
+
 	else
 		puts "Your packing list for your trip to #{active_list.destination} departing #{active_list.departure_date}:"
+
 		active_list.packing_list.each do | list_item, is_done |
 			if is_done
 				puts "[x] #{list_item}"
@@ -227,14 +221,18 @@ loop do
 				puts "[ ] #{list_item}"
 			end
 		end
+
 	end
+
 	puts ""
 	puts "Please select an option:"
 	puts "(a)dd item to list, (m)ark item complete, (d)elete list and quit,"
 	puts "(r)emove item from list, (q)uit without saving,"
 	puts "(c)hange departure date, (u)pdate destination, (s)ave and quit"
+
 	valid_operations = "amdcusrq"
 	user_instruction = gets.chomp
+
 	if !valid_operations.chars.include?(user_instruction.downcase)
 		until "amdcusrq".chars.include?(user_instruction.downcase)
 			system "clear"
@@ -256,6 +254,7 @@ loop do
 		#mark item complete
 		puts "Which item is now complete?"
 		finally_finished = gets.chomp
+
 		if active_list.packing_list.has_key?(finally_finished)
 			active_list.packing_list[finally_finished] = true
 		else
@@ -267,6 +266,7 @@ loop do
 	elsif user_instruction.downcase == "r"
 		puts "Which item are you removing?"
 		to_remove = gets.chomp
+
 		if active_list.packing_list.has_key?(to_remove)
 			active_list.packing_list.delete(to_remove)
 		else
@@ -276,11 +276,16 @@ loop do
 		end
 
 	elsif user_instruction.downcase == "q"
+		if create_new_list
+			db.execute("DELETE from lists where id = ?", [list_to_load])
+		end
+		puts "Ciao!"
 		abort	
 
 	elsif user_instruction.downcase == "d"
 		# delete list and quit - may need to group this with (s) so break works on all loops - test this
 		db.execute("DELETE from lists where id = ?", [list_to_load])
+		puts "Ta ta, dahling! :*"
 		abort
 
 	elsif user_instruction.downcase == "c"
@@ -304,8 +309,3 @@ loop do
 	end
 
 end
-
-	
-
-
-
