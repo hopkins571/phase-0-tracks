@@ -117,7 +117,7 @@ if create_new_user
 
 	db.execute("INSERT INTO users (name, pin) VALUES (?, ?)", [new_username, new_pin])
 	puts "Welcome, #{new_username}. Let's get started creating a new packing list."
-	selected_user = db.execute("SELECT MAX(id) FROM users")[0]["id"]
+	selected_user = db.execute("SELECT MAX(id) FROM users")[0]["MAX\(id\)"]
 
 else
 	# need to verify pin
@@ -138,10 +138,7 @@ else
 	# make array of valid list IDs
 	valid_list_ids = []
 	all_user_lists.each { | individual_list |  valid_list_ids << individual_list["id"] }
-	# p all_user_lists.class
-	# p all_user_lists[0]
-	# p valid_list_ids
-	# p all_user_lists
+
 	if all_user_lists.empty?
 		system "clear"
 		puts "You don't have any saved lists. Let's create a new one!"
@@ -175,7 +172,6 @@ else
 
 		if list_to_load.downcase != "new"
 			create_new_list = false
-			#time to pass all the info from the existing list into the a new class instance, yay!
 		else
 			create_new_list = true
 		end
@@ -199,7 +195,7 @@ end
 
 list_data = db.execute("SELECT * FROM lists WHERE id = ?", [list_to_load])
 
-active_list = PackingList.new(db,list_data[0]["user_id"],list_data[0]["id"],eval(list_data[0]["items"]))
+active_list = PackingList.new(db, selected_user, list_data[0]["id"], eval(list_data[0]["items"]) )
 
 # initialize list
 # loop: display list of commands for user: mark complete, add to to list, remove from list, update date, update destination, delete active list and quit, save changes and quit, quit without saving
@@ -301,7 +297,7 @@ loop do
 
 
 	elsif user_instruction.downcase == "s"
-		db.execute("UPDATE lists SET destination = ?, depart_date = ?, items = ?, user_id = ? where id = ?", [active_list.destination, active_list.departure_date, active_list.packing_list.to_s, active_list.user_id, active_list.list_id])
+		db.execute("UPDATE lists SET destination = ?, depart_date = ?, items = ?, user_id = ? where id = ?", [active_list.destination, active_list.departure_date, active_list.packing_list.to_s, active_list.user_id.to_i, active_list.list_id.to_i])
 		system "clear"
 		puts "Bon Voyage!"
 		sleep 3
