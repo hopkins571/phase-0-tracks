@@ -1,5 +1,6 @@
 require_relative 'packinglister_methods'
 require 'sqlite3'
+require 'io/console'
 
 # Greet user
 # create new database, results as hash true
@@ -7,7 +8,7 @@ require 'sqlite3'
 # users table - (id int primary key, name varchar, pin integer)
 # lists table - (id int primary key, destination varchar, depart_date varchar, items blob, user_id int, foreign key user_id=users(id))
 # execute command to create users table, then command to create lists table
-
+system "clear"
 puts "Welcome to Packinglister!"
 db = SQLite3::Database.new("packing_lists.db")
 db.results_as_hash = true
@@ -69,6 +70,7 @@ if !all_users.empty?
 			create_new_list = true
 		else
 			puts "Invalid input. Try again."
+			selected_user = gets.chomp
 		end
 	end
 # if there are no 
@@ -85,9 +87,9 @@ if create_new_user
 
 	until new_pin == verify_pin
 		puts "Please enter a PIN."
-		new_pin = gets.chomp
+		new_pin = STDIN.noecho(&:gets).chomp
 		puts "Please re-enter your PIN."
-		verify_pin = gets.chomp
+		verify_pin = STDIN.noecho(&:gets).chomp
 
 		if new_pin != verify_pin
 			puts "Your PIN entries did not match. Please try again."
@@ -96,6 +98,7 @@ if create_new_user
 
 	db.execute("INSERT INTO users (name, pin) VALUES (?, ?)", [new_username, new_pin])
 	puts "Welcome, #{new_username}. Let's get started creating a new packing list."
+	selected_user = db.execute("SELECT MAX(id) FROM users")[0]["id"]
 
 else
 	# need to verify pin
@@ -103,14 +106,16 @@ else
 	actual_pin = db.execute("SELECT pin FROM users WHERE id = ?", [selected_user])[0]["pin"].to_i
 	check_pin = nil
 	until check_pin.to_i == actual_pin
-		check_pin = gets.chomp
+		check_pin = STDIN.noecho(&:gets).chomp
 		if check_pin.to_i != actual_pin
 			puts "Invalid PIN. Please try again."
 		end
 	end
 
 	# get all this user's lists - each list will be an array - index 0 id, 1 dest, 2 date, 3 list-blob
-	all_user_lists = db.execute("SELECT id, destination, depart_date FROM lists WHERE user_id = ?", [selected_user])
+	get_user_lists_cmd = "SELECT id, destination, depart_date FROM lists WHERE user_id = ?"
+
+	all_user_lists = db.execute(get_user_lists_cmd, [selected_user])
 	# make array of valid list IDs
 	valid_list_ids = []
 	all_user_lists.each { | individual_list |  valid_list_ids << individual_list["id"] }
@@ -119,41 +124,72 @@ else
 	# p valid_list_ids
 	# p all_user_lists
 	if all_user_lists.empty?
+		system "clear"
 		puts "You don't have any saved lists. Let's create a new one!"
 		create_new_list = true
 	else
+		system "clear"
 		puts "Here are your saved lists:"
 		puts "LIST ID .. DESTINATION .. DEPARTURE DATE"
+
 		all_user_lists.each do  | individual_list |
 			puts "#{individual_list['id']} .. #{individual_list['destination']} .. #{individual_list['depart_date']}"
 		end
-	end
 
+		puts "Please enter the ID of the list you'd like to access."
+		puts "Or enter 'new' to create a new list."
 
-	puts "Please enter the ID of the list you'd like to access."
-	puts "Or enter 'new' to create a new list."
+		list_to_load = gets.chomp
 
-	list_to_load = gets.chomp
+		validresponse = false
 
-	validresponse = false
-
-	if list_to_load.downcase == "new" || valid_list_ids.include?(list_to_load.to_i)
-		validresponse = true
-	end
-
-	if !validresponse
-		
-		until valid_list_ids.include?(list_to_load.to_i) || list_to_load.downcase == "new"
-			puts "Sorry, that wasn't a valid list ID. Enter the list ID or 'new' to create a new list."
-			list_to_load = gets.chomp
+		if list_to_load.downcase == "new" || valid_list_ids.include?(list_to_load.to_i)
+			validresponse = true
 		end
-	end
 
-	if list_to_load.downcase != "new"
-		#time to pass all the info from the existing list into the a new class instance, yay!
-	else
-		#prompt user for new list info, create new class instance with this info, yay!
-	end
+		if !validresponse
+			until valid_list_ids.include?(list_to_load.to_i) || list_to_load.downcase == "new"
+				puts "Sorry, that wasn't a valid list ID. Enter the list ID or 'new' to create a new list."
+				list_to_load = gets.chomp
+			end
+		end
 
+		if list_to_load.downcase != "new"
+			create_new_list = false
+			#time to pass all the info from the existing list into the a new class instance, yay!
+		else
+			create_new_list = true
+		end
+
+	end
 end
+
+create_new_list_cmd = "INSERT INTO lists (destination, depart_date, items, user_id) VALUES (?, ?, ?, ?)"
+
+if create_new_list
+	system "clear"
+	# get all info for new list
+	puts "Please enter the destination."
+	destination_input = gets.chomp
+	puts "Please enter the departure date in the format yyyy-mm-dd." # add code to test format if you have time, otherwise nbd
+	departure_input = gets.chomp
+	db.execute(create_new_list_cmd, [destination_input, departure_input, {}.to_s, selected_user])
+	list_to_load = db.execute("SELECT MAX(id) FROM lists")[0]["MAX(id)"]
+end
+
+# get info from list to feed into new class instance
+
+list_data = db.execute("SELECT * FROM lists WHERE id = ?", [list_to_load])
+p list_data.class
+p list_data
+# test_list = {
+# 	"socks" => false,
+# 	"shoes" => false
+# }.to_s
+# p test_list
+# p list_data.class
+p list_data
+# db.execute("UPDATE lists SET items = ? WHERE id = 1", [test_list])
+active_list = PackingList.new(db,list_data[0]["user_id"],list_data[0]["id"],eval(list_data[0]["items"]))
+
 
