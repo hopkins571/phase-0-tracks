@@ -98,9 +98,51 @@ if create_new_user
 	puts "Welcome, #{new_username}. Let's get started creating a new packing list."
 
 else
-	# get all this user's lists
+	# get all this user's lists - each list will be an array - index 0 id, 1 dest, 2 date, 3 list-blob
 	all_user_lists = db.execute("SELECT id, destination, depart_date FROM lists WHERE user_id = ?", [selected_user])
+	# make array of valid list IDs
+	valid_list_ids = []
+	all_user_lists.each { | individual_list |  valid_list_ids << individual_list["id"] }
 	p all_user_lists.class
-	p all_user_lists
+	p all_user_lists[0]
+	p valid_list_ids
+	# p all_user_lists
+	if all_user_lists.empty?
+		puts "You don't have any saved lists. Let's create a new one!"
+		create_new_list = true
+	else
+		puts "Here are your saved lists:"
+		puts "LIST ID .. DESTINATION .. DEPARTURE DATE"
+		all_user_lists.each do  | individual_list |
+			puts "#{individual_list['id']} .. #{individual_list['destination']} .. #{individual_list['depart_date']}"
+		end
+	end
+
+
+	puts "Please enter the ID of the list you'd like to access."
+	puts "Or enter 'new' to create a new list."
+
+	list_to_load = gets.chomp
+
+	validresponse = false
+
+	if list_to_load.downcase == "new" || valid_list_ids.include?(list_to_load.to_i)
+		validresponse = true
+	end
+
+	if !validresponse
+		
+		until valid_list_ids.include?(list_to_load.to_i) || list_to_load.downcase == "new"
+			puts "Sorry, that wasn't a valid list ID. Enter the list ID or 'new' to create a new list."
+			list_to_load = gets.chomp
+		end
+	end
+
+	if list_to_load.downcase != "new"
+		#time to pass all the info from the existing list into the a new class instance, yay!
+	else
+		#prompt user for new list info, create new class instance with this info, yay!
+	end
+
 end
 
