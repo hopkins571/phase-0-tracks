@@ -1,4 +1,4 @@
-require relative 'packinglister_methods'
+require_relative 'packinglister_methods'
 require 'sqlite3'
 
 # Greet user
@@ -33,3 +33,44 @@ SQL
 db.execute(create_users_table_cmd)
 db.execute(create_lists_table_cmd)
 
+# define empty hash all_users
+# use sql query to get id and name for all users
+# insert all of these into all_users: ids are the keys, names are values
+
+all_users = {}
+db.execute("SELECT id, name FROM users").each do |user|
+	all_users[user["id"].to_s] = user["name"]
+end
+
+# select existing user or create new user?
+# IF all_users isn't empty:
+# 	print userid and name of each user
+# 	user to enter their user id or enter 'new' to register as new user
+# 	def boolean variable create_new_user, set to nil
+# 	UNTIL create_new_user isn't nil
+# 		IF user input is a valid userid, THEN create_new_user = true
+# 		ELSIF user input is "new", THEN create_new_user = false
+# 		ELSE user input must be invalid, display error message, create_new_user is still nil, must loop and try again
+# ELSE (all_users IS empty), THEN create_new_user = true
+
+if !all_users.empty?
+	puts "USER ID .. USER NAME"
+	all_users.each do | user_id, user_name |
+		puts "#{user_id} .. #{user_name}"
+	end
+	puts "Please enter your user id to continue or enter 'new' to create a new user."
+	selected_user = gets.chomp
+	create_new_user = nil
+	until create_new_user != nil
+		if all_users.has_key?(selected_user)
+			create_new_user = false
+		elsif selected_user.downcase == "new"
+			create_new_user = true
+		else
+			puts "Invalid input. Try again."
+		end
+	end
+# if there are no 
+else
+	create_new_user = true
+end
