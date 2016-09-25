@@ -1,6 +1,23 @@
-require_relative 'packinglister_methods'
 require 'sqlite3'
 require 'io/console'
+
+class PackingList
+
+	attr_reader :user_id, :list_id
+	attr_accessor :packing_list, :destination, :departure_date
+
+	def initialize(database, userid, list_id, imported_list)
+		@db = database
+		@db.results_as_hash = true
+		@destination = @db.execute("SELECT destination FROM lists where id = ?", [list_id])[0]["destination"]
+		@departure_date = @db.execute("SELECT depart_date FROM lists where id = ?", [list_id])[0]["depart_date"]
+		@user_id = userid
+		@list_id = list_id
+		@packing_list = imported_list
+	end
+
+end
+
 
 # Greet user
 # create new database, results as hash true
@@ -8,6 +25,8 @@ require 'io/console'
 # users table - (id int primary key, name varchar, pin integer)
 # lists table - (id int primary key, destination varchar, depart_date varchar, items blob, user_id int, foreign key user_id=users(id))
 # execute command to create users table, then command to create lists table
+
+
 system "clear"
 puts "Welcome to Packinglister!"
 db = SQLite3::Database.new("packing_lists.db")
@@ -167,7 +186,6 @@ end
 create_new_list_cmd = "INSERT INTO lists (destination, depart_date, items, user_id) VALUES (?, ?, ?, ?)"
 
 if create_new_list
-	system "clear"
 	# get all info for new list
 	puts "Please enter the destination."
 	destination_input = gets.chomp
@@ -180,16 +198,114 @@ end
 # get info from list to feed into new class instance
 
 list_data = db.execute("SELECT * FROM lists WHERE id = ?", [list_to_load])
-p list_data.class
-p list_data
+# p list_data.class
+# p list_data
 # test_list = {
-# 	"socks" => false,
+# 	"socks" => true,
 # 	"shoes" => false
 # }.to_s
 # p test_list
 # p list_data.class
-p list_data
+# p list_data
 # db.execute("UPDATE lists SET items = ? WHERE id = 1", [test_list])
 active_list = PackingList.new(db,list_data[0]["user_id"],list_data[0]["id"],eval(list_data[0]["items"]))
+
+# initialize list
+# loop: display list of commands for user: mark complete, add to to list, remove from list, update date, update destination, delete active list and quit, save changes and quit, quit without saving
+
+loop do
+	system "clear"
+	if active_list.packing_list.empty?
+		puts "Your packing list for your trip to #{active_list.destination} departing #{active_list.departure_date}"
+		puts "is currently empty."
+	else
+		puts "Your packing list for your trip to #{active_list.destination} departing #{active_list.departure_date}:"
+		active_list.packing_list.each do | list_item, is_done |
+			if is_done
+				puts "[x] #{list_item}"
+			else
+				puts "[ ] #{list_item}"
+			end
+		end
+	end
+	puts ""
+	puts "Please select an option:"
+	puts "(a)dd item to list, (m)ark item complete, (d)elete list and quit,"
+	puts "(r)emove item from list, (q)uit without saving,"
+	puts "(c)hange departure date, (u)pdate destination, (s)ave and quit"
+	valid_operations = "amdcusrq"
+	user_instruction = gets.chomp
+	if !valid_operations.chars.include?(user_instruction.downcase)
+		until "amdcusrq".chars.include?(user_instruction.downcase)
+			system "clear"
+			puts "Invalid operation. Valid operations are:"
+			puts "(a)dd item to list, (m)ark item complete, (d)elete list and quit,"
+			puts "(r)emove item from list, (q)uit without saving,"
+			puts "(c)hange departure date, (u)pdate destination, (s)ave and quit"
+			puts "Please try again."
+			user_instruction = gets.chomp
+		end
+
+	elsif user_instruction.downcase == "a"
+		# add item to list
+		puts "Please enter the item to add to the list"
+		new_item = gets.chomp
+		active_list.packing_list[new_item] = false
+
+	elsif user_instruction.downcase == "m"
+		#mark item complete
+		puts "Which item is now complete?"
+		finally_finished = gets.chomp
+		if active_list.packing_list.has_key?(finally_finished)
+			active_list.packing_list[finally_finished] = true
+		else
+			system "clear"
+			puts "Sorry, I couldn't find that on your list."
+			sleep 1
+		end
+	
+	elsif user_instruction.downcase == "r"
+		puts "Which item are you removing?"
+		to_remove = gets.chomp
+		if active_list.packing_list.has_key?(to_remove)
+			active_list.packing_list.delete(to_remove)
+		else
+			system "clear"
+			puts "Sorry, I couldn't find that on your list."
+			sleep 1
+		end
+
+	elsif user_instruction.downcase == "q"
+		abort	
+
+	elsif user_instruction.downcase == "d"
+		# delete list and quit - may need to group this with (s) so break works on all loops - test this
+		db.execute("DELETE from lists where id = ?", [list_to_load])
+		abort
+
+	elsif user_instruction.downcase == "c"
+		#change departure date
+		puts "Please enter your new departure date: yyyy-mm-dd"
+		active_list.departure_date= gets.chomp # add test for valid format if enough time
+
+
+	elsif user_instruction.downcase == "u"
+		#update destination
+		puts "Please enter your new destination."
+		active_list.destination= gets.chomp
+
+
+	elsif user_instruction.downcase == "s"
+		db.execute("UPDATE lists SET destination = ?, depart_date = ?, items = ?, user_id = ? where id = ?", [active_list.destination, active_list.departure_date, active_list.packing_list.to_s, active_list.user_id, active_list.list_id])
+		system "clear"
+		puts "Bon Voyage!"
+		sleep 3
+		abort
+	end
+
+end
+
+	
+
 
 
