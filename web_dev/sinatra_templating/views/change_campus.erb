@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Student Management System</h1>
+  <h2>Change Your Campus</h2>
+    <% @campuses = [] %>
+    <% @students.each do |student| %>
+    <% if !@campuses.include?(student['campus']) %>
+    <% @campuses << student['campus'] %>
+    <% end %>
+    <% end %>
+   <main>
+   <form action="/students/change_campus" method="post">
+   <fieldset>
+   <div>Select the student: <select name="student">
+   <% @students.each do |student| %>
+   <option value="<%=student['id'].to_i%>"><%=student['name']%></option>
+   <% end %>
+   </select>
+   </div>
+   <div>Select their new campus:
+   <select name="campus">
+   <% @campuses.each do |campus| %>
+   <option value="<%=campus%>"><%=campus%></option>
+   <% end %>
+   </select>
+   </div>
+   <div><button type="submit">Change your campus!</button></div>
+   </fieldset>
+   </form>
+  </main>
+</body>
+</html> 
