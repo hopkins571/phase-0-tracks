@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Student Management System</h1>
+  <h2>Our Locations</h2>
+  <ul>
+    <% @campuses = [] %>
+    <% @students.each do |student| %>
+    <% if !@campuses.include?(student['campus']) %>
+    <% @campuses << student['campus'] %>
+    <% end %>
+    <% end %>
+    <% @campuses.each do |location| %>
+      <li><%= location %></li>
+    <% end %>
+  </ul>
+</body>
+</html> 
